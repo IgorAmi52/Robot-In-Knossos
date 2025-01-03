@@ -53,7 +53,7 @@ namespace labyrinth {
 
         // Create entrance from top only
         int entrance = utils::get_random_int(1, width - 2);
-        maze[0][entrance] = 'E';
+        maze[0][entrance] = 'U';
         maze[1][entrance] = 'R';
 
         std::vector<std::pair<int, int>> frontier;
@@ -110,7 +110,7 @@ namespace labyrinth {
 
         // Choose a random path from the bottom paths for the exit
         int exit_index = utils::get_random_int(0, bottom_paths.size() - 1);
-        maze[height - 1][bottom_paths[exit_index]] = 'X';
+        maze[height - 1][bottom_paths[exit_index]] = 'I';
 
         std::vector<std::pair<int, int>> valid_positions = get_valid_positions(maze, width, height);
         
@@ -119,7 +119,7 @@ namespace labyrinth {
             int pos_index = utils::get_random_int(0, valid_positions.size() - 1);
             int x = valid_positions[pos_index].first;
             int y = valid_positions[pos_index].second;
-            maze[y][x] = 'I';  // Mark items with 'I'
+            maze[y][x] = 'P';  // Mark items with 'I'
             valid_positions.erase(valid_positions.begin() + pos_index);
         }
 

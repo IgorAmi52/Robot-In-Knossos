@@ -15,28 +15,28 @@ namespace utils{
         return get_random_int(0, 1);
     }
 
-// Utility to get a random direction, avoiding specified directions
-char get_random_direction(const std::vector<char>& avoid_directions) {
-    // Define all possible directions
-    std::vector<char> directions = {'U', 'D', 'L', 'R'};
+    // Utility to get a random direction, avoiding specified directions
+    char get_random_direction(const std::vector<char>& avoid_directions) {
+        // Define all possible directions
+        std::vector<char> directions = {'U', 'D', 'L', 'R'};
 
-    // Remove the directions to avoid
-    for (char avoid : avoid_directions) {
-        directions.erase(std::remove(directions.begin(), directions.end(), avoid), directions.end());
+        // Remove the directions to avoid
+        for (char avoid : avoid_directions) {
+            directions.erase(std::remove(directions.begin(), directions.end(), avoid), directions.end());
+        }
+
+        // If there are no directions left, return a default direction ('U')
+        if (directions.empty()) {
+            return 'U';
+        }
+
+        // Seed the random number generator if it's not already seeded
+        std::srand(std::time(0));
+
+        // Pick a random direction from the remaining directions
+        int random_index = std::rand() % directions.size();
+
+        return directions[random_index];
     }
-
-    // If there are no directions left, return a default direction ('U')
-    if (directions.empty()) {
-        return 'U';
-    }
-
-    // Seed the random number generator if it's not already seeded
-    std::srand(std::time(0));
-
-    // Pick a random direction from the remaining directions
-    int random_index = std::rand() % directions.size();
-
-    return directions[random_index];
-}
 
 }

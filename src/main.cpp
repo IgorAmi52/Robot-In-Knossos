@@ -3,7 +3,11 @@
 
 int main() {
 
-    labyrinth::Labyrinth lab = labyrinth::Labyrinth(17, 17, 5);
-
-    lab.print();
+    labyrinth::Labyrinth lab = labyrinth::Labyrinth(15, 10, 5);
+    while (true) {
+        lab.print();
+        char direction;
+        std::cin >> direction;
+        lab.move_player(direction);
+        }
 }
