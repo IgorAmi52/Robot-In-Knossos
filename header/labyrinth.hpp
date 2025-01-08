@@ -35,10 +35,8 @@ namespace labyrinth {
 
     private:
         char **maze;
-        int width;
-        int height;
-        int player_x;
-        int player_y; 
+        int width, height;
+        int player_x, player_y; 
         int item_longitude;
         std::string item_desc = "";
         bool visibility_limit = false;
@@ -46,8 +44,8 @@ namespace labyrinth {
         bool have_sword = false;
         bool have_hammer = false;
         bool minotaur_alive = true;
-        int minotaur_x;
-        int minotaur_y;
+        int minotaur_x, minotaur_y;
+        double generation_time;
 
         // Moves the minotaur within the labyrinth.
         void move_minotaur();

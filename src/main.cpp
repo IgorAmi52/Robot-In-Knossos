@@ -1,38 +1,25 @@
 #include "labyrinth.hpp"
 #include <iostream>
+#include <cstdlib>
 
-int main() {
-    int width, height, items_count;
-    labyrinth::Labyrinth *lab = nullptr;
+int main(int argc, char* argv[]) {
+    if (argc != 4) {
+        std::cerr << "Usage: " << argv[0] << " <width> <height> <item_count>" << std::endl;
+        return 1;
+    }
 
-    while(lab == nullptr){
-        std::cout << "\033[2J\033[1;1H"; // Clear the console
-        try {
-            std::cout << "Enter the width of the labyrinth: ";
-            std::cin >> width;
-            if (std::cin.fail()) {
-               throw std::invalid_argument("Width must be an integer!");
-            }
-            std::cout << "Enter the height of the labyrinth: ";
-            std::cin >> height;
-            if (std::cin.fail()) {
+    int width = std::atoi(argv[1]);
+    int height = std::atoi(argv[2]);
+    int items_count = std::atoi(argv[3]);
 
-                throw std::invalid_argument("Height must be an integer!");
-            }
-            std::cout << "Enter the number of items in the labyrinth: ";
-            std::cin >> items_count;
-            if (std::cin.fail()) {
-                throw std::invalid_argument("Items count must be an integer!");
-            }
-            lab = new labyrinth::Labyrinth(width, height, items_count);
-        } catch(const std::exception& e) {
-                std::cin.clear(); // Clear the error flag
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the rest of the input
-                std::cerr << e.what() << '\n';
-        }
+    if (width < 15 || height < 15 || items_count < 3) {
+        std::cerr << "Width and height must be at least 15, and item count must be at least 3." << std::endl;
+        return -1;
     }
 
     std::cout << "\033[2J\033[1;1H"; // Clear the console
+
+    labyrinth::Labyrinth *lab = new labyrinth::Labyrinth(width, height, items_count);
 
     while (true) {
         lab->print();
@@ -40,5 +27,7 @@ int main() {
         std::cin >> direction;
         lab->move_player(direction);
     }
+
     delete lab;
+    return 0;
 }

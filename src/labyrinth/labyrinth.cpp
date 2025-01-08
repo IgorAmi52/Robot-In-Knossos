@@ -57,6 +57,7 @@ namespace labyrinth{
 
         std::chrono::duration<double> duration = end - start;
         std::cout << "Labyrinth generated in " << duration.count() << " seconds." << std::endl;
+        this->generation_time = duration.count();
         std::this_thread::sleep_for(std::chrono::milliseconds(2000)); 
     }
 
@@ -271,7 +272,8 @@ namespace labyrinth{
                 }
                 file << std::endl;
             }
-            file << final_result;
+            file << final_result << std::endl;
+            file << "Labirinth generation time: " << this->generation_time << " seconds." << std::endl;
             file.close();
         } else {
             std::cerr << "Unable to open file to save maze structure." << std::endl;
