@@ -7,6 +7,15 @@
 #include "labyrinth.hpp"
 #include "utils.hpp"
 
+/**
+ * Adds frontier cells to the list of frontiers.
+ * @param frontiers The list of frontier cells.
+ * @param x The x position of the current cell.
+ * @param y The y position of the current cell.
+ * @param width The width of the maze.
+ * @param height The height of the maze.
+ * @param maze The maze array.
+ */
 void add_frontiers(std::vector<std::pair<int, int>>& frontiers, int x, int y, int width, int height, char** maze) {
     // Only add cells that are at least 2 steps away and not touching borders
     if (x + 2 <= width - 2 && maze[y][x + 2] == '#') {
@@ -22,9 +31,23 @@ void add_frontiers(std::vector<std::pair<int, int>>& frontiers, int x, int y, in
         frontiers.push_back(std::make_pair(x, y + 2));
     }
 }
+
+/**
+ * Checks if a cell is a path.
+ * @param cell The cell character.
+ * @return True if the cell is a path, false otherwise.
+ */
 bool is_path(char cell) {
     return cell == ' ' || cell == 'R';
 }
+
+/**
+ * Gets valid positions for placing items and the minotaur.
+ * @param maze The maze array.
+ * @param width The width of the maze.
+ * @param height The height of the maze.
+ * @return A vector of valid positions.
+ */
 std::vector<std::pair<int, int>> get_valid_positions(char** maze, int width, int height) {
     std::vector<std::pair<int, int>> positions;
     for(int y = 1; y < height - 1; y++) {
@@ -36,7 +59,15 @@ std::vector<std::pair<int, int>> get_valid_positions(char** maze, int width, int
     }
     return positions;
 }
+
 namespace labyrinth {
+    /**
+     * Generates the labyrinth with the given dimensions and item count.
+     * @param width The width of the labyrinth.
+     * @param height The height of the labyrinth.
+     * @param items_count The number of items in the labyrinth.
+     * @throws std::invalid_argument if width or height is less than 5.
+     */
     void Labyrinth::gen_labyrinth(int width, int height, int items_count) {
         if (width < 5 || height < 5) {
             throw std::invalid_argument("Width and height must be at least 5");

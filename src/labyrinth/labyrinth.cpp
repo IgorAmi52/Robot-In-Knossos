@@ -46,6 +46,8 @@ namespace labyrinth{
         if (items_count < 3) {
             throw std::invalid_argument("Items count must be at least 3");
         }
+        if (width % 2 == 0) width++;
+        if (height % 2 == 0) height++; 
         this->width = width;
         this->height = height;
 
@@ -105,9 +107,12 @@ namespace labyrinth{
      * Removes any items the player has.
      */
     void Labyrinth::remove_item(){
+        this->item_longitude = 0;
+        this->item_desc = "";
         this->have_shield = false;
         this->have_sword = false;
         this->have_hammer = false;
+        this->visibility_limit = false;
     }
 
     /**
@@ -202,13 +207,16 @@ namespace labyrinth{
             if (new_y != this->player_y){
                 if(new_y > this->player_y)new_y++;
                 else new_y--;  
+                if (maze[new_y][new_x] == '#')return; // make sure player can't go through two walls
+                
             }
             else{
                 if(new_x > this->player_x)new_x++;
                 else new_x--;
+                if (maze[new_y][new_x] == '#')return; // make sure player can't go through two walls
             }
         }
-        if(new_x < 0 || new_x >= this->width || new_y < 0 || new_y >= this->height){
+        if(new_x < 0 || new_x >= this->width || new_y < 0 || new_y >= this->height || this->maze[new_y][new_x] == '#'){
             return;
         }
         this->maze[player_y][player_x] = ' ';
@@ -218,11 +226,12 @@ namespace labyrinth{
                 this->minotaur_alive = false;
             }
             else{
-                std::cout << "You died" << std::endl;
+                std::cout << "You died!" << std::endl;
                 exit(0);
             }
         }    
         if(this->maze[new_y][new_x] == 'P'){
+            remove_item();
             items::Item* item = items::get_random_item();
             item->use(*this);
             this->item_desc = item->get_description();
