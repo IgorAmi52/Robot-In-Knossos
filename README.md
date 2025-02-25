@@ -24,7 +24,6 @@ This project implements an interactive maze game where players control a robot t
 ## Prerequisites
 - C++ compiler with C++11 support or higher
 - CMake 3.10 or higher
-- Terminal that supports ASCII characters
 
 ## Installation
 1. Clone the repository
@@ -39,12 +38,8 @@ mkdir build
 cd build
 cmake ..
 cmake --build .
+```
 
-```
-3. Run the program
-```bash
-./labyrinth 20 30 24
-```
 ## Maze Generation
 The maze is generated using Prim's algorithm, modified for maze creation:
 

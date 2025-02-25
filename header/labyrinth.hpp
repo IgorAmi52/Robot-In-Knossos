@@ -3,10 +3,7 @@
 
 #include <string>
 namespace labyrinth {
-
-    // Generates a labyrinth with the given width, height, and item count.
-    char** gen_labyrinth(int width, int height, int item_count);
-
+    
     class Labyrinth {
     public:
         Labyrinth(int width, int height, int item_count);
